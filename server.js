@@ -95,7 +95,7 @@ function insertOrUpdate(method, req, res){
 }
 
 app.get('/api/get/categories', function (req, res) {
-    var cat = {categories: ['', 'Krimi', 'Romance', 'Scifi']};
+    var cat = {categories: ['', 'Thriller', 'Romance', 'Scifi']};
     res.json(cat);
 });
 
