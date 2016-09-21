@@ -8,7 +8,7 @@ This app also uses Bootstrap/Material-UI and more
 
 npm install
 
-node webpack
+npm run build
 
-node server.js
+npm start
 
