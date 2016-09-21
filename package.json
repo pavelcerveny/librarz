@@ -1,6 +1,10 @@
 {
-  "name": "application-name",
+  "name": "Librarz",
   "version": "0.0.1",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node_modules/.bin/webpack"
+  },
   "dependencies": {
     "babel-core": "*",
     "babel-loader": "*",
