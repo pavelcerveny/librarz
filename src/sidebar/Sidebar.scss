@@ -1,0 +1,27 @@
+.sidebar {
+	min-width: 80px;
+	max-width: 80px;
+	height: 100vh;
+	background-color: #fff;
+	// box-shadow: 0 8px 6px -6px rgba(216, 216, 221, 0.25);
+	box-shadow: 0 8px 12px rgba(216, 216, 221, 0.25);
+
+	ul {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		list-style: none;
+		-webkit-padding-start: 0;
+		padding-top: 40px;
+
+		li {
+			text-align: center;
+			font-size: 32px;
+			padding-bottom: 25px;
+		}
+
+		.icon-active {
+			color: #aa66e3;
+		}
+	}
+}
