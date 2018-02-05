@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './header/Header';
 import Sidebar from "./sidebar/Sidebar";
+import Search from "./search/Search";
 import './App.scss';
 
 class App extends Component {
@@ -12,8 +13,8 @@ class App extends Component {
         </div>
         <div className="page-col-2">
           <Header />
-          <div className="container-fluid content">
-
+          <div className="content">
+            <Search />
           </div>
         </div>
       </div>
