@@ -9,6 +9,7 @@ class Search extends Component {
           <input placeholder="vyhledat knihu..."/>
           <select className="btn">
             <option>Všechno</option>
+            <option>Autor</option>
           </select>
           <button type="submit" className="btn search-button">
             <i className="fa fa-search" />

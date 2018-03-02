@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './header/Header';
 import Sidebar from "./sidebar/Sidebar";
 import Search from "./search/Search";
+import DataTable from "./dataTable/DataTable";
 import './App.scss';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
           <Header />
           <div className="content">
             <Search />
+            <DataTable />
           </div>
         </div>
       </div>
