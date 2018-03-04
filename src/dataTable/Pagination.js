@@ -7,7 +7,21 @@ const defaultButton = props => (
   <button type="button" {...props} className="-btn">
     {props.children}
   </button>
-)
+);
+
+const next = props => (
+  <button className="angle">
+    <i className="fa fa-angle-right" aria-hidden="true"/>
+    {props.children}
+  </button>
+);
+
+const prev = props => (
+  <button className="angle">
+    <i className="fa fa-angle-left" aria-hidden="true"/>
+    {props.children}
+  </button>
+);
 
 export default class ReactTablePagination extends Component {
   constructor (props) {
@@ -61,8 +75,8 @@ export default class ReactTablePagination extends Component {
       canNext,
       onPageSizeChange,
       className,
-      PreviousComponent = defaultButton,
-      NextComponent = defaultButton,
+      PreviousComponent = prev,
+      NextComponent = next,
     } = this.props
 
     return (
@@ -70,19 +84,11 @@ export default class ReactTablePagination extends Component {
         className={classnames(className, '-pagination')}
         style={this.props.paginationStyle}
       >
-        <div className="-previous">
-          <PreviousComponent
-            onClick={() => {
-              if (!canPrevious) return
-              this.changePage(page - 1)
-            }}
-            disabled={!canPrevious}
-          >
-            {this.props.previousText}
-          </PreviousComponent>
-        </div>
+{/*        <div className="-previous">
+
+        </div>*/}
         <div className="-center">
-          <span className="-pageInfo">
+{/*          <span className="-pageInfo">
             {this.props.pageText}{' '}
             {showPageJump
               ? <div className="-pageJump">
@@ -110,7 +116,7 @@ export default class ReactTablePagination extends Component {
               </span>}{' '}
             {this.props.ofText}{' '}
             <span className="-totalPages">{pages || 1}</span>
-          </span>
+          </span>*/}
           {showPageSizeOptions &&
           <span className="select-wrap -pageSizeOptions">
               <select
@@ -126,7 +132,28 @@ export default class ReactTablePagination extends Component {
               </select>
             </span>}
         </div>
-        <div className="-next">
+        <div className="rows-num-page">
+          <div>
+            1 - 5 of 11
+          </div>
+        </div>
+        <PreviousComponent
+          onClick={() => {
+            if (!canPrevious) return
+            this.changePage(page - 1)
+          }}
+          disabled={!canPrevious}
+        >
+        </PreviousComponent>
+        <NextComponent
+          onClick={() => {
+            if (!canNext) return
+            this.changePage(page + 1)
+          }}
+          disabled={!canNext}
+        >
+        </NextComponent>
+{/*        <div className="-next">
           <NextComponent
             onClick={() => {
               if (!canNext) return
@@ -136,7 +163,7 @@ export default class ReactTablePagination extends Component {
           >
             {this.props.nextText}
           </NextComponent>
-        </div>
+        </div>*/}
       </div>
     )
   }

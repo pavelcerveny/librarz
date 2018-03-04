@@ -1,13 +1,179 @@
 import React, {Component} from 'react';
 import ReactTable from 'react-table';
+import ReactTablePagination from './Pagination';
 
 import './DataTable.scss';
+import dataJson from './data.json';
 
 class DataTable extends Component {
 
   state = {
     settingsBar: 'none',
-    checkboxes: []
+    checkboxes: [],
+    setColumns: 'var1',
+    index: 0,
+    columns: {
+      var2: [
+        {
+          Header: '',
+          accessor: '_id', // String-based value accessors!
+          className: 'md-checkbox',
+          Cell: props => {
+            return (
+              <div>
+                <input
+                  type="checkbox"
+                  onClick={this.clickCheckbox}
+                  id={`checkbox-${props.original['_id']}`} />
+                <label
+                  htmlFor={`checkbox-${props.original['_id']}`} />
+              </div> // Custom cell components!
+            );
+          }
+
+        },
+        {
+          Header: 'Název knihy',
+          accessor: 'bookName', // String-based value accessors!
+          Cell: props => {
+            if (props.index === 0) {
+              return <input type="text" value={props.value} />;
+            } else {
+              return <span>{props.value}</span>
+            }
+          }
+        },
+        {
+          Header: 'Autor',
+          accessor: 'authors', // String-based value accessors!
+          Cell: props => {
+            if (props.index === 0) {
+              return <input type="text" value={props.value} />;
+            } else {
+              return <span>{props.value}</span>
+            }
+          }
+        },
+        {
+          Header: 'Kategorie',
+          accessor: 'category', // String-based value accessors!
+          Cell: props => {
+            if (props.index === 0) {
+              return <input type="text" value={props.value} />;
+            } else {
+              return <span>{props.value}</span>
+            }
+          }
+        },
+        {
+          Header: 'Umístění',
+          accessor: 'location', // String-based value accessors!
+          Cell: props => {
+            if (props.index === 0) {
+              return <input type="text" value={props.value} />;
+            } else {
+              return <span>{props.value}</span>
+            }
+          }
+        },
+        {
+          Header: 'Datum',
+          accessor: 'inputDate.$$date',
+          Cell: props => {
+            if (props.index === 0) {
+              return <input type="date" value={this.formatDate(props.value)} />;
+            } else {
+              return <span>{props.value}</span>
+            }
+          } // Custom cell components!
+        },
+        /*      {
+                id: 'friendName', // Required because our accessor is not a string
+                Header: 'Friend Name',
+                accessor: d => d.friend.name // Custom value accessors!
+              },
+              {
+                Header: props => <span>Friend Age</span>, // Custom header components!
+                accessor: 'friend.age'
+              },*/
+        {
+          Header: '',
+          accessor: 'settings', // String-based value accessors!
+          className: 'data-table-ellipsis',
+          Cell: () => <i className="fa fa-ellipsis-h" aria-hidden="true"/>// Custom cell components!
+        }
+      ],
+      var1: [
+        {
+          Header: '',
+          accessor: '_id', // String-based value accessors!
+          className: 'md-checkbox',
+          Cell: props => {
+            return (
+              <div>
+                <input
+                  type="checkbox"
+                  onClick={this.clickCheckbox}
+                  id={`checkbox-${props.original['_id']}`} />
+                <label
+                  htmlFor={`checkbox-${props.original['_id']}`} />
+              </div> // Custom cell components!
+            );
+          }
+
+        },
+        {
+          Header: 'Název knihy',
+          accessor: 'bookName' // String-based value accessors!
+        },
+        {
+          Header: 'Autor',
+          accessor: 'authors' // String-based value accessors!
+        },
+        {
+          Header: 'Kategorie',
+          accessor: 'category' // String-based value accessors!
+        },
+        {
+          Header: 'Umístění',
+          accessor: 'location' // String-based value accessors!
+        },
+        {
+          Header: 'Datum',
+          accessor: 'inputDate.$$date',
+          Cell: props => <span className='number'>{this.formatDate(props.value)}</span> // Custom cell components!
+        },
+        /*      {
+                id: 'friendName', // Required because our accessor is not a string
+                Header: 'Friend Name',
+                accessor: d => d.friend.name // Custom value accessors!
+              },
+              {
+                Header: props => <span>Friend Age</span>, // Custom header components!
+                accessor: 'friend.age'
+              },*/
+        {
+          Header: '',
+          accessor: 'settings', // String-based value accessors!
+          className: 'data-table-ellipsis',
+          Cell: () => <i className="fa fa-ellipsis-h" aria-hidden="true"/>// Custom cell components!
+        }
+      ]
+    }
+  };
+
+  formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    // Hours part from the timestamp
+    const hours = date.getHours();
+    // Minutes part from the timestamp
+    const minutes = "0" + date.getMinutes();
+    // Seconds part from the timestamp
+    const seconds = "0" + date.getSeconds();
+
+    // Will display time in 10:30:23 format
+    // return `${date.getDay()}.${date.getMonth()}.${date.getFullYear()}`;
+    return ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth() + 1)).slice(-2) + '.' + date.getFullYear();
   };
 
   clickCheckbox = (event) => {
@@ -63,7 +229,7 @@ class DataTable extends Component {
     const columns = [
       {
         Header: '',
-        accessor: 'id', // String-based value accessors!
+        accessor: '_id', // String-based value accessors!
         className: 'md-checkbox',
         Cell: props => {
           return (
@@ -71,9 +237,9 @@ class DataTable extends Component {
               <input
                 type="checkbox"
                 onClick={this.clickCheckbox}
-                id={`checkbox-${props.original.id}`} />
+                id={`checkbox-${props.original['_id']}`} />
               <label
-                htmlFor={`checkbox-${props.original.id}`} />
+                htmlFor={`checkbox-${props.original['_id']}`} />
             </div> // Custom cell components!
           );
         }
@@ -85,7 +251,7 @@ class DataTable extends Component {
       },
       {
         Header: 'Autor',
-        accessor: 'author' // String-based value accessors!
+        accessor: 'authors' // String-based value accessors!
       },
       {
         Header: 'Kategorie',
@@ -96,9 +262,9 @@ class DataTable extends Component {
         accessor: 'location' // String-based value accessors!
       },
       {
-        Header: 'Počet stran',
-        accessor: 'pages',
-        Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+        Header: 'Datum',
+        accessor: 'inputDate.$$date',
+        Cell: props => <span className='number'>{this.formatDate(props.value)}</span> // Custom cell components!
       },
 /*      {
         id: 'friendName', // Required because our accessor is not a string
@@ -116,6 +282,63 @@ class DataTable extends Component {
         Cell: () => <i className="fa fa-ellipsis-h" aria-hidden="true"/>// Custom cell components!
       }
     ];
+
+    const columns2 = [
+      {
+        Header: '',
+        accessor: '_id', // String-based value accessors!
+        className: 'md-checkbox',
+        Cell: props => {
+          return (
+            <div>
+              <input
+                type="checkbox"
+                onClick={this.clickCheckbox}
+                id={`checkbox-${props.original['_id']}`} />
+              <label
+                htmlFor={`checkbox-${props.original['_id']}`} />
+            </div> // Custom cell components!
+          );
+        }
+
+      },
+      {
+        Header: 'Název knihy',
+        accessor: 'bookName' // String-based value accessors!
+      },
+      {
+        Header: 'Autor',
+        accessor: 'bookName' // String-based value accessors!
+      },
+      {
+        Header: 'Kategorie',
+        accessor: 'bookName' // String-based value accessors!
+      },
+      {
+        Header: 'Umístění',
+        accessor: 'location' // String-based value accessors!
+      },
+      {
+        Header: 'Datum',
+        accessor: 'inputDate.$$date',
+        Cell: props => <span className='number'>{this.formatDate(props.value)}</span> // Custom cell components!
+      },
+      /*      {
+              id: 'friendName', // Required because our accessor is not a string
+              Header: 'Friend Name',
+              accessor: d => d.friend.name // Custom value accessors!
+            },
+            {
+              Header: props => <span>Friend Age</span>, // Custom header components!
+              accessor: 'friend.age'
+            },*/
+      {
+        Header: '',
+        accessor: 'settings', // String-based value accessors!
+        className: 'data-table-ellipsis',
+        Cell: () => <i className="fa fa-ellipsis-h" aria-hidden="true"/>// Custom cell components!
+      }
+    ];
     return (
       <div className="row">
         <div className="data-table">
@@ -126,8 +349,9 @@ class DataTable extends Component {
             </ul>
           </div>
           <ReactTable
-            data={data}
-            columns={columns}
+            PaginationComponent={ReactTablePagination}
+            data={dataJson}
+            columns={this.state.columns[this.state.setColumns]}
             className="-striped -highlight"
             minRows={2}
             getTdProps={(state, rowInfo, column, instance) => {
@@ -137,12 +361,25 @@ class DataTable extends Component {
                   if (handleOriginal) {
                     handleOriginal()
                   }
-
                   const tagName = e.target.tagName.toLowerCase();
                   if (tagName === 'label' || tagName === 'input' || tagName === 'i') {
                     console.log('checkbox');
+                    console.log(instance);
+                    if (tagName === 'input' && e.target.checked) {
+                      this.setState((prevState, props) => {
+
+                        if (prevState.setColumns === 'var1') {
+                          return {setColumns: 'var2'};
+                        } else {
+                          return {setColumns: 'var1'};
+                        }
+                      });
+                      instance.forceUpdate();
+                    }
+
                   } else {
-                    console.log(rowInfo.original.url);
+                    const url = `/edit/book/${rowInfo.original['_id']}`;
+                    console.log(url);
                   }
 
                 }
