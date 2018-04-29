@@ -10,14 +10,14 @@ const defaultButton = props => (
 );
 
 const next = props => (
-  <button className="angle">
+  <button {...props} className="angle">
     <i className="fa fa-angle-right" aria-hidden="true"/>
     {props.children}
   </button>
 );
 
 const prev = props => (
-  <button className="angle">
+  <button {...props} className="angle">
     <i className="fa fa-angle-left" aria-hidden="true"/>
     {props.children}
   </button>
@@ -26,10 +26,6 @@ const prev = props => (
 export default class ReactTablePagination extends Component {
   constructor (props) {
     super(props);
-
-    this.getSafePage = this.getSafePage.bind(this)
-    this.changePage = this.changePage.bind(this)
-    this.applyPage = this.applyPage.bind(this)
 
     this.state = {
       page: props.page,
@@ -55,6 +51,11 @@ export default class ReactTablePagination extends Component {
     }
   }
 
+  calculateRecordsTo (page, pageSize, dataLen) {
+    let currentSize = pageSize + (page * pageSize);
+    return currentSize > dataLen ? dataLen : currentSize;
+  }
+
   applyPage (e) {
     if (e) { e.preventDefault() }
     const page = this.state.page
@@ -67,6 +68,7 @@ export default class ReactTablePagination extends Component {
       pages,
       // Props
       page,
+      data,
       showPageSizeOptions,
       pageSizeOptions,
       pageSize,
@@ -134,7 +136,7 @@ export default class ReactTablePagination extends Component {
         </div>
         <div className="rows-num-page">
           <div>
-            1 - 5 of 11
+            {(1 + (page * pageSize))} - {this.calculateRecordsTo(page, pageSize, data.length)} of {data.length}
           </div>
         </div>
         <PreviousComponent

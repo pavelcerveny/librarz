@@ -4,13 +4,20 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.0.0",
+    "history": "^4.7.2",
+    "moment": "^2.22.1",
     "node-sass-chokidar": "^0.0.3",
     "npm-run-all": "^4.1.2",
     "react": "^16.2.0",
+    "react-datepicker": "^1.4.1",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
+    "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "1.1.0",
-    "react-table": "^6.7.6"
+    "react-table": "^6.7.6",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
