@@ -1,43 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-
-import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'react-router-redux';
 import { Route } from 'react-router';
-
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+import { Provider } from 'react-redux';
+import { configureStore, history } from './store/configureStore';
 
 import './index.scss';
 import App from './App';
+import DevTools from './DevTools';
+
 import registerServiceWorker from './registerServiceWorker';
 
-import reducers from './reducers';
-
-
-const history = createHistory();
-
-// Build the middleware for intercepting and dispatching navigation actions
-const middleware = routerMiddleware(history);
-
-const store = createStore(
-  combineReducers({
-    ...reducers,
-    router: routerReducer
-  }),
-  applyMiddleware(middleware)
-);
+const store = configureStore();
 
 // Now you can dispatch navigation actions from anywhere!
 // store.dispatch(push('/foo'))
 
 ReactDOM.render(
   <Provider store={store}>
-    { /* ConnectedRouter will use the store from Provider automatically */ }
-    <ConnectedRouter history={history}>
+    <div>
+      <ConnectedRouter history={history}>
         <Route exact path="/" component={App}/>
-    </ConnectedRouter>
+      </ConnectedRouter>
+      <DevTools />
+    </div>
   </Provider>,
   document.getElementById('root')
 );
